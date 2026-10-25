@@ -22,7 +22,8 @@ function loadProgram(saved = {}) {
   vm.runInContext(read('docs/fueling.js') + '\n' + read('docs/app.js') + `
     this.api = {weeks, phases, dateFor, addDays, runwalk, chartKmMax, dayList, weekNote,
       weekVolume, weekBadge, strengthFor, sessionExtras, recoveryOptions, plan, overview,
-      fueling, fuelState, calculateFuel, fuelPackResult, getLogs:()=>logs,
+      fueling, fuelState, calculateFuel, fuelPackResult, todayPage, getLogs:()=>logs,
+      selectDay(n){selectedDay=n},
       selectWeek(n){selected=n}};`, context);
   return {...context.api, elements, events, writes};
 }
@@ -177,4 +178,25 @@ test('all browser assets are content-versioned and local preview mirror matches 
   if(fs.existsSync(path.join(root,'toronto-2027/dist')))
     for(const name of ['index.html','app.js','fueling.js','style.css'])
       assert.equal(read('docs/'+name),read('toronto-2027/dist/'+name),name+' mirror differs');
+});
+
+
+test('Today shares session guidance and logs, including recovery and race week', () => {
+  const m=loadProgram({'2026-10-27':{duration:30}});
+  m.selectWeek(0);m.selectDay(1);
+  let html=m.todayPage();
+  assert.match(html,/8 × \(1 min jog/);
+  assert.match(html,/Warm-up &amp; cool-down|Warm-up & cool-down/);
+  assert.match(html,/Completed · Edit log/);
+  assert.match(html,/data-log="2026-10-27"/);
+  assert.equal((html.match(/data-day=/g)||[]).length,7);
+  m.selectDay(0);html=m.todayPage();
+  assert.match(html,/Optional 15–30 min relaxed walk/);
+  assert.doesNotMatch(html,/data-log=/);
+  m.selectWeek(50);m.selectDay(6);html=m.todayPage();
+  assert.match(html,/9 km training \+ marathon/);
+  assert.match(html,/Race day · 42.195 km/);
+  assert.doesNotMatch(html,/Optional strength/);
+  m.selectWeek(1);m.selectDay(1);
+  assert.match(m.todayPage(),/Optional strength/);
 });
