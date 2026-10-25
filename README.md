@@ -14,3 +14,11 @@ The GitHub Pages website is served from `docs/` on the `master` branch. It uses 
 Run logs stay in the current browser and do not sync between devices or website addresses.
 
 The separate local `toronto-2027/` checkout and deployment archive are ignored here; they are not required for GitHub Pages.
+
+## Higher-volume training route
+
+The beginner run/walk and consistency phases stay unchanged. The base phase builds toward 38–40 km across four runs before marathon preparation. Five runs begin June 28, 2027 with a short Saturday run introduced in a cutback week, conditional on handling four days and the base volume comfortably. Monday and Friday remain non-running days.
+
+The marathon build includes repeated 50–60 km weeks and a 70 km peak in Week 48 (September 20–26): Tuesday 9 km, Wednesday 14 km, Thursday 8 km, Saturday 4 km, Sunday up to 35 km. Recovery weeks and a three-week taper remain. The three optional pace sessions now fall in lower-volume weeks. Race week retains 9 km of easy running before the marathon.
+
+Later targets require normal recovery and sufficient training time. Hold or reduce volume when needed; missed runs are not made up. The 35 km long run remains provisional and depends on duration and recovery.
